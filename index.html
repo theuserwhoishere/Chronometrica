@@ -42,8 +42,8 @@ function abm() {
 return 3*((23/3)**(1/365))**day();
 }
 function update() {
-document.getElementById('day').innerHTML = 'Days since 2/16/26 in UTC: ' + day()
-document.getElementById('abm').innerHTML = `Abmetric Index [${abm()}]`
+document.getElementById('day').innerHTML = 'Days since 2/16/26 in UTC: ' + day().toPrecision(10).padEnd(10,"0")
+document.getElementById('abm').innerHTML = `Abmetric Index [${abm().toPrecision(10).padEnd(10,"0")}]`
 }
 setInterval(() => update(), 1)
 </script>
