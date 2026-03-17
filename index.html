@@ -127,7 +127,7 @@ function percentToNext() {
 return ((1-(focusedPart[1][2]-abm())/(focusedPart[1][2]-focusedPart[0][2]))*100).toPrecision(7).padEnd(7,0) + '%';
 }
 function update() {
-document.getElementById('day').innerHTML = 'Days since 2/16/26 in UTC: ' + day().toPrecision(10).padEnd(10,0)
+document.getElementById('day').innerHTML = 'Time since 2/16/26 in UTC: ' + daytotimestamp(day())
 document.getElementById('abm').innerHTML = `Abmetric Index [${abm().toPrecision(10).padEnd(10,0)}]`
 document.getElementById('next').innerHTML = 'Next entry in ' + daytotimestamp(abmtoday(focusedPart[1][2]) - day())
 document.getElementById('innerbar').innerHTML = percentToNext();
