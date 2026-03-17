@@ -1,7 +1,8 @@
 An HTML/CSS/JS port of The Chronometrica
 ## Credits
 - Jax G for the original idea of The Chronometrica. Their PenguinMod project determining the value can be found here: https://studio.penguinmod.com/fullscreen.html?fps=60&size=640x360#0199814286
-- The BBN spreadsheet for number info on numarray.js (names, symbols, abmetric index, equivalent entries)
+- The BBN spreadsheet (by Skyla) for number info on numarray.js (names, symbols, abmetric index, equivalent entries): https://docs.google.com/spreadsheets/d/1iYp6VyEhT5JeENpVRjqs7BT9yJd0l-8kHFX_ct7BZMI/edit?usp=sharing
+- - This sheet is licensed under the CC-BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 ## Formula
 ### Regular (abmetric index from days since 2/16/26 in UTC)
 $$3*\sqrt[365]{\frac{23}{3}}^{d}$$, where d = days since 2/16/26
