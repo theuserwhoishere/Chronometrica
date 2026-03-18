@@ -264,7 +264,7 @@ numarray = [["Inpredictafinity", "‡", "3.50"],
 ["Omnivssunians", "[untypable symbol]", "5.80"],
 ["GOODBYE OF NUMBERS...", "[no symbol]", "5.85"],
 ["The True Beyond Gods of all Time of the Terminus Symbols Ever of the Craziest Terminusly Craziest Number Ever", "[no symbol]", "5.95"],
-["The Real Final Point", "[untypable symbol]", "6.00", [["\"The End of All Numbers\"", "[untypable symbol]"], ["Spiritual Mastery", "◌̄"], ["The Endility Void of Null", "𖤼"], ["The Finitial Score", "FSc◈⌘⦕1⦖"], ["Phi-Reality of Cardinals", "ಹ2"]]]
+["The Real Final Point", "[untypable symbol]", "6.00", [["\"The End of All Numbers\"", "[untypable symbol]"], ["Spiritual Mastery", "◌̄"], ["The Endility Void of Null", "𖤼"], ["The Finitial Score", "FSc◈⌘⦕1⦖"], ["Phi-Reality of Cardinals", "ಹ2"]]],
 ["Tarpile-Terminus", "[no symbol]", "6.002"],
 ["Lacnao-Terminus", "[no symbol]", "6.003"],
 ["Absolute True Terminus", "[no symbol]", "6.0035"],
