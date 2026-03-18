@@ -3,6 +3,12 @@
 .symbol {
 	font-size: 100px;
 }
+.ecolor {
+	color: #ffb0b0;
+}
+.mcolor {
+	color: #ffd0b0;
+}
 .txt1 {
 	font-size: 50px;
 }
@@ -11,31 +17,40 @@
 	font-size: 25px;
 }
 .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.centraldiv {
-	display: flex;
-    justify-content: center;
-    align-items: center;
+	position: absolute;
+	text-align: center;
+
 	width: 100%;
-	height: 90%;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.bar, .bar_m {
+	position: absolute;
+	width: 100%;
+	height: 50px;
 }
 .bar {
-	height: 10%;
+	bottom: 50px;
+}
+.bar_m {
+	bottom: 0%;
 }
 body {
 	margin: 0;
 	overflow: hidden;
 	background: repeating-linear-gradient(22deg, black, #444444, black 200px);
 }
-#outerbar {
-    background: #ff000080;
-    height: 10%;
+#outerbar, #outerbar_m {
+    height: inherit;
     position: absolute;
 }
-#innerbar {
+#outerbar {
+    background: #ff000080;
+}
+#outerbar_m {
+    background: #ff800080;
+}
+#innerbar, #innerbar_m {
 	display: flex;
 	position: relative;
 	height: 100%;
@@ -44,19 +59,18 @@ body {
 	flex-wrap: wrap;
 	font-size: 50px;
 }
-.entries {
-	height: 0;
+.entries, .milestones {
 	display: flex;
 }
-#lentry, #rentry {
+#lentry, #rentry, #lmilestone, #rmilestone {
 	display: flex;
 	width: 50%;
 	font-size: 32px;
 }
-#lentry {
+#lentry, #lmilestone {
 	justify-content: flex-start;
 }
-#rentry {
+#rentry, #rmilestone {
 	justify-content: flex-end;
 	text-align: right;
 }
@@ -68,33 +82,39 @@ span {
 </head>
 <body>
 <div class="entries">
-<span id="lentry">Left</span>
-<span id="rentry">Right</span>
+<span class="ecolor" id="lentry">Left Entry</span>
+<span class="ecolor" id="rentry">Right Entry</span>
 </div>
-<div class="centraldiv"><div class="content">
+<div class="milestones">
+<span class="mcolor" id="lmilestone">Left Milestone</span>
+<span class="mcolor" id="rmilestone">Right Milestone</span>
+</div>
+<div class="content">
 <span class="txt1">The Chronometrica</span>
 <br>
 <span class="symbol">~[⏱️]~</span>
 <br>
 <span class="txt1" id="abm">Abmetric Index...</span>
 <br>
-<span class="txt2" id="day">Days since 2/16/26 in UTC...</span>
+<span class="txt2" id="day">Time since 2/16/26 in UTC...</span>
 <br>
-<span class="txt2" id="next">Next entry in...</span>
-</div></div>
+<span class="txt2 ecolor" id="next">Next entry in...</span>
+<br>
+<span class="txt2 mcolor" id="next_m">Next milestone in...</span>
+</div>
 <div class="bar">
 <div id="outerbar" style="width: 50%;"></div>
 <span id="innerbar">Percentage...</span>
+</div>
+<div class="bar_m">
+<div id="outerbar_m" style="width: 50%;"></div>
+<span id="innerbar_m">Percentage...</span>
 </div>
 <script src="numarray.js"></script>
 <script>
 function day() {
 return Date.now()/86400000-20500;
 }
-function abm() {
-return 3*((23/3)**(1/365))**day();
-}
-function abmtoday(a) {return Math.log(a/3)/Math.log((23/3)**(1/365))}
 function daytotimestamp(d) {
 const D = Math.floor(d)
 const h = 24 * (d - D)
@@ -105,36 +125,49 @@ const s = 60 * (m - M)
 const S = s.toFixed(3).padStart(6,0).padEnd(3,0)
 return D + ':' + H + ':' + M + ":" + S
 }
+function abm() {
+return 3*((23/3)**(1/365))**day();
+}
+function abmtoday(a) {return Math.log(a/3)/Math.log((23/3)**(1/365))}
 function updateFocusedPart() {
-const focusedIndex = numarray.findIndex((element) => (element[2] >= abm()));
-return [numarray[focusedIndex-1], numarray[focusedIndex]];
+	const focusedIndex = numarray.findIndex((element) => (element[2] >= abm()))
+	return [numarray[focusedIndex-1], numarray[focusedIndex]]
 }
-function updateFocusedElements() {
-if (focusedPart[0].length == 4) {
-document.getElementById('lentry').innerHTML = `${focusedPart[0][0]} - ${focusedPart[0][1]}: [${focusedPart[0][2]}]<br>Equivalents: ${focusedPart[0][3].map((a) => a.join(' - ')).join('<br>')}`
-} else {
-document.getElementById('lentry').innerHTML = `${focusedPart[0][0]} - ${focusedPart[0][1]}: [${focusedPart[0][2]}]`
+function updateFocusedPartM() {
+	const focusedIndex = milarray.findIndex((element) => (element[2] >= abm()))
+	return [milarray[focusedIndex-1], milarray[focusedIndex]]
 }
-if (focusedPart[1].length == 4) {
-document.getElementById('rentry').innerHTML = `${focusedPart[1][0]} - ${focusedPart[1][1]}: [${focusedPart[1][2]}]<br>Equivalents: ${focusedPart[1][3].map((a) => a.join(' - ')).join('<br>')}`
-} else {
-document.getElementById('rentry').innerHTML = `${focusedPart[1][0]} - ${focusedPart[1][1]}: [${focusedPart[1][2]}]`
-}}
-focusedPart = updateFocusedPart();
-updateFocusedElements();
-console.log(focusedPart);
+function updateFocusedElement(html, data) {
+	let text = `${data[0]} - ${data[1]}: [${data[2]}]`
+	if (data.length == 4) text += `<br>Equivalents: ${data[3].map((a) => a.join(' - ')).join('<br>')}`
+	document.getElementById(html).innerHTML = text
+}
+function updateFocusedNumbers() {
+	focusedPart = updateFocusedPart()
+	focusedPartM = updateFocusedPartM()
+	updateFocusedElement('lentry', focusedPart[0])
+	updateFocusedElement('rentry', focusedPart[1])
+	updateFocusedElement('lmilestone', focusedPartM[0])
+	updateFocusedElement('rmilestone', focusedPartM[1])
+}
 function percentToNext() {
-return ((1-(focusedPart[1][2]-abm())/(focusedPart[1][2]-focusedPart[0][2]))*100).toPrecision(7).padEnd(7,0) + '%';
+	return ((1-(focusedPart[1][2]-abm())/(focusedPart[1][2]-focusedPart[0][2]))*100).toPrecision(7).padEnd(7,0) + '%'
 }
+function percentToNextM() {
+	return ((1-(focusedPartM[1][2]-abm())/(focusedPartM[1][2]-focusedPartM[0][2]))*100).toPrecision(7).padEnd(7,0) + '%'
+}
+updateFocusedNumbers()
 function update() {
 document.getElementById('day').innerHTML = 'Time since 2/16/26 in UTC: ' + daytotimestamp(day())
 document.getElementById('abm').innerHTML = `Abmetric Index [${abm().toPrecision(10).padEnd(10,0)}]`
 document.getElementById('next').innerHTML = 'Next entry in ' + daytotimestamp(abmtoday(focusedPart[1][2]) - day())
+document.getElementById('next_m').innerHTML = 'Next milestone in ' + daytotimestamp(abmtoday(focusedPartM[1][2]) - day())
 document.getElementById('innerbar').innerHTML = percentToNext();
 document.getElementById('outerbar').setAttribute("style", 'width:' + percentToNext());
+document.getElementById('innerbar_m').innerHTML = percentToNextM();
+document.getElementById('outerbar_m').setAttribute("style", 'width:' + percentToNextM());
 if (abm() >= focusedPart[1][2]) {
-	focusedPart = updateFocusedPart();
-	updateFocusedElements();
+	updateFocusedNumbers()
 	console.log('focused part updated');
 }}
 setInterval(() => update(), 1)
