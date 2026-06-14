@@ -5,6 +5,10 @@ An HTML/CSS/JS port of The Chronometrica
 - - This sheet is licensed under the CC-BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
 ## Formula
 ### Regular (abmetric index from days since 2/16/26 in UTC)
-$$3*\sqrt[365]{\frac{23}{3}}^{d}$$, where d = days since 2/16/26
-### Inverse (days since 2/16/26 in UTC from abmetric index)
-$$\log_{\sqrt[365]{\frac{23}{3}}}(\frac{a}{3})$$, where a = abmetric index
+Chronometrica:
+$$3*\sqrt[365]{\frac{23}{3}}^{d}$$, where d = days since 2/16/26<br>
+Chronoblast:
+$$15*\sqrt[1500]{\frac{23}{3}}^{d}$$, where d = days since 6/15/26
+### Inverse (days since 2/16/26 (chronometrica) or 6/15/26 (chronoblast) in UTC from abmetric index)
+Chronometrica: $$\log_{\sqrt[365]{\frac{23}{3}}}(\frac{a}{3})$$, where a = abmetric index<br>
+Chronoblast: $$\log_{\sqrt[1500]{\frac{23}{3}}}(\frac{a}{15})$$, where a = abmetric index
